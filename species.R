@@ -30,7 +30,8 @@ if (!file.exists(obs_geo) | redo){
   # get species occurrence data from GBIF with coordinates
   (res <- spocc::occ(
     query = 'Neomonachus schauinslandi', 
-    from = 'gbif', has_coords = T))
+    from = 'gbif', has_coords = T,
+    limit = 10000))
   
   # extract data frame from result
   df <- res$gbif$data[[1]] 
@@ -40,11 +41,11 @@ if (!file.exists(obs_geo) | redo){
   obs <- df %>% 
     sf::st_as_sf(
       coords = c("longitude", "latitude"),
-      crs = st_crs(4326)) %>% 
+      crs = st_crs(4326)) %>%
     select(prov, key) # save space (joinable from obs_csv)
   sf::write_sf(obs, obs_geo, delete_dsn=T)
 }
 obs <- sf::read_sf(obs_geo)
 nrow(obs) # number of rows
 
-mapview::mapview(obs, map.types = "Stamen.Terrain")
+mapview::mapview(obs, map.types = "Stadia.AlidadeSmooth")
