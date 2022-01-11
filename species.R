@@ -48,4 +48,4 @@ if (!file.exists(obs_geo) | redo){
 obs <- sf::read_sf(obs_geo)
 nrow(obs) # number of rows
 
-mapview::mapview(obs, map.types = "Stadia.AlidadeSmooth")
+mapview::mapview(obs, map.types = "Esri.WorldImagery")
